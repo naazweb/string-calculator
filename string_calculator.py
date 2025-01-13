@@ -9,7 +9,8 @@ def add(numbers: str) -> int:
     if numbers == '':
         return 0
 
-    if len(numbers) == 1:
-        return int(numbers)
+    nums = numbers.split(',')
+    if len(nums) == 1:
+        return int(nums)
 
     pass
