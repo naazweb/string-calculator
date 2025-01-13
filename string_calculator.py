@@ -6,4 +6,10 @@ def add(numbers: str) -> int:
     returns:
         int: The sum of the numbers.
     """
+    if numbers == '':
+        return 0
+
+    if len(numbers) == 1:
+        return int(numbers)
+
     pass
