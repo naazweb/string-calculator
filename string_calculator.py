@@ -40,7 +40,11 @@ def get_int_numbers(numbers: str) -> List[int]:
     if numbers.startswith('//'):
         # split at first \n
         delimiter, numbers = numbers.split('\n', 1)
-        delimiter = delimiter[2:]
+        # check if the delimiter is multiple characters
+        if delimiter.startswith('//['):
+            delimiter = delimiter[3:-1]
+        else:
+            delimiter = delimiter[2:]
 
     # replace custom delimiter with comma
     numbers = numbers.replace(delimiter, ',')
