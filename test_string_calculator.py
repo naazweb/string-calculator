@@ -23,6 +23,9 @@ class TestStringCalculator(unittest.TestCase):
     def test_custom_delimiter(self):
         self.assertEqual(add('//;\n1;2'), 3)
 
+    def test_custom_delimiter_with_newline(self):
+        self.assertEqual(add('//;\n1;2\n3'), 6)
+
 
 # Run the tests
 if __name__ == '__main__':
