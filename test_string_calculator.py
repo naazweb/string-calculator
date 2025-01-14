@@ -44,6 +44,9 @@ class TestStringCalculator(unittest.TestCase):
     def test_large_numbers(self):
         self.assertEqual(add('1001,2'), 2)
 
+    def test_custom_delimiter_with_multiple_characters(self):
+        self.assertEqual(add('//[***]\n1***2***3'), 6)
+
 
 # Run the tests
 if __name__ == '__main__':
