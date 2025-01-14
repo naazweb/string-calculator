@@ -41,6 +41,9 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(str(context.exception),
                          'negative numbers not allowed: -2, -3')
 
+    def test_large_numbers(self):
+        self.assertEqual(add('1001,2'), 2)
+
 
 # Run the tests
 if __name__ == '__main__':
