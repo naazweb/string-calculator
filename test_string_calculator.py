@@ -47,6 +47,9 @@ class TestStringCalculator(unittest.TestCase):
     def test_custom_delimiter_with_multiple_characters(self):
         self.assertEqual(add('//[***]\n1***2***3'), 6)
 
+    def test_multiple_custom_delimiters(self):
+        self.assertEqual(add('//[*][%]\n1*2%3'), 6)
+
 
 # Run the tests
 if __name__ == '__main__':
