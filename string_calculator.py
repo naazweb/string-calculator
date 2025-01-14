@@ -1,32 +1,6 @@
 from typing import List
 
 
-def add(numbers: str) -> int:
-    """
-    This function takes a string of numbers separated by commas and returns their sum.
-    params:
-        numbers: str: A string of numbers separated by commas.
-    returns:
-        int: The sum of the numbers.
-    """
-    if numbers == '':
-        return 0
-
-    # split and get numbers as integers
-    nums = get_int_numbers(numbers)
-
-    if len(nums) == 1:
-        return nums[0]
-
-    # check for negative numbers
-    negatives = [str(num) for num in nums if num < 0]
-    if negatives:
-        raise ValueError(
-            f'negative numbers not allowed: {", ".join(negatives)}')
-
-    return add_nums(nums)
-
-
 def get_int_numbers(numbers: str) -> List[int]:
     """
     This function takes a string of numbers separated by some delimiter and returns a list of integers.
@@ -66,6 +40,35 @@ def add_nums(nums: List[int]) -> int:
     returns:
         int: The sum of the numbers.
     """
-    # check for large numbers above 1000
+    # check for large numbers above 1000 and ignore them
     nums = [num for num in nums if num <= 1000]
     return sum(nums)
+
+
+def add(numbers: str) -> int:
+    """
+    This function takes a string of numbers separated by commas and returns their sum.
+    params:
+        numbers: str: A string of numbers separated by commas.
+    returns:
+        int: The sum of the numbers.
+    """
+    # check if the string is empty -> return 0
+    if numbers == '':
+        return 0
+
+    # split and get numbers as integers
+    nums = get_int_numbers(numbers)
+
+    # check if there is only one number -> return the number
+    if len(nums) == 1:
+        return nums[0]
+
+    # check for negative numbers -> raise an error
+    negatives = [str(num) for num in nums if num < 0]
+    if negatives:
+        raise ValueError(
+            f'negative numbers not allowed: {", ".join(negatives)}')
+
+    # return the sum of the numbers
+    return add_nums(nums)

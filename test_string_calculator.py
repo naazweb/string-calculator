@@ -1,8 +1,8 @@
-# class to test the string_calculator.py
 import unittest
 from string_calculator import add
 
 
+# class to test the string_calculator.py
 class TestStringCalculator(unittest.TestCase):
 
     def test_empty_string(self):
