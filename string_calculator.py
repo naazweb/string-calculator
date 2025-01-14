@@ -31,7 +31,8 @@ def get_int_numbers(numbers: str) -> List[int]:
     delimiter = ','
     # check if the string has a custom delimiter
     if numbers.startswith('//'):
-        delimiter, numbers = numbers.split('\n')
+        # split at first \n
+        delimiter, numbers = numbers.split('\n', 1)
         delimiter = delimiter[2:]
 
     # replace custom delimiter with comma
