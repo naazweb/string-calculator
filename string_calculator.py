@@ -35,21 +35,25 @@ def get_int_numbers(numbers: str) -> List[int]:
     returns:
         list[int]: A list of integers.
     """
-    delimiter = ','
+    # default delimiters
+    delimiters = [',', '\n']
     # check if the string has a custom delimiter
     if numbers.startswith('//'):
         # split at first \n
         delimiter, numbers = numbers.split('\n', 1)
         # check if the delimiter is multiple characters
         if delimiter.startswith('//['):
-            delimiter = delimiter[3:-1]
+            # check if there are multiple delimiters
+            if delimiter.count('[') > 1:
+                delimiters.extend(delimiter[3:-1].split(']['))
+            else:
+                delimiters.append(delimiter[3:-1])
         else:
-            delimiter = delimiter[2:]
+            delimiters.append(delimiter[2:])
 
-    # replace custom delimiter with comma
-    numbers = numbers.replace(delimiter, ',')
-    # replace newline with comma
-    numbers = numbers.replace('\n', ',')
+    # replace all delimiter with a comma
+    for delimiter in delimiters:
+        numbers = numbers.replace(delimiter, ',')
 
     return list(map(int, numbers.split(',')))
 
