@@ -9,6 +9,9 @@ def add(numbers: str) -> int:
     if numbers == '':
         return 0
 
+    if '\n' in numbers:
+        numbers = numbers.replace('\n', ',')
+
     nums = list(map(int, numbers.split(',')))
     if len(nums) == 1:
         return nums[0]
