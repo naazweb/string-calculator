@@ -1,3 +1,6 @@
+from typing import List
+
+
 def add(numbers: str) -> int:
     """
     This function takes a string of numbers separated by commas and returns their sum.
@@ -9,11 +12,31 @@ def add(numbers: str) -> int:
     if numbers == '':
         return 0
 
-    if '\n' in numbers:
-        numbers = numbers.replace('\n', ',')
+    nums = get_int_numbers(numbers)
 
-    nums = list(map(int, numbers.split(',')))
     if len(nums) == 1:
         return nums[0]
 
     return sum(nums)
+
+
+def get_int_numbers(numbers: str) -> List[int]:
+    """
+    This function takes a string of numbers separated by some delimiter and returns a list of integers.
+    params:
+        numbers: str: A string of numbers separated by some delimiter.
+    returns:
+        list[int]: A list of integers.
+    """
+    delimiter = ','
+    # check if the string has a custom delimiter
+    if numbers.startswith('//'):
+        delimiter, numbers = numbers.split('\n')
+        delimiter = delimiter[2:]
+
+    # replace custom delimiter with comma
+    numbers = numbers.replace(delimiter, ',')
+    # replace newline with comma
+    numbers = numbers.replace('\n', ',')
+
+    return list(map(int, numbers.split(',')))
