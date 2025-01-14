@@ -17,6 +17,12 @@ def add(numbers: str) -> int:
     if len(nums) == 1:
         return nums[0]
 
+    # check for negative numbers
+    negatives = [str(num) for num in nums if num < 0]
+    if negatives:
+        raise ValueError(
+            f'negative numbers not allowed: {", ".join(negatives)}')
+
     return sum(nums)
 
 
