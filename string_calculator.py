@@ -1,22 +1,15 @@
-from typing import List
+from typing import List, Tuple
 
 
-def get_int_numbers(numbers: str) -> List[int]:
+def get_delimiters(numbers: str) -> Tuple[List[str], str]:
     """
-    This function takes a string of numbers separated by some delimiter and returns a list of integers.
+    This function takes a string of numbers separated by some delimiter and returns a list of delimiters.
     params:
         numbers: str: A string of numbers separated by some delimiter.
     returns:
-        list[int]: A list of integers.
+        list[str]: A list of delimiters.
     """
-    # default delimiters
     delimiters = [',', '\n']
-    index_specified = False
-    # check if mentions E or O
-    if numbers.startswith('E') or numbers.startswith('O'):
-        index_specified = True
-        use_indexes = numbers[0]
-        numbers = numbers[1:]
     # check if the string has a custom delimiter
     if numbers.startswith('//'):
         # split at first \n
@@ -30,6 +23,42 @@ def get_int_numbers(numbers: str) -> List[int]:
                 delimiters.append(delimiter[3:-1])
         else:
             delimiters.append(delimiter[2:])
+    return delimiters, numbers
+    
+
+def get_numbers_at_indexes(numbers: List[int], indexes: str) -> List[int]:
+    """
+    This function takes a string of numbers separated by some delimiter and a string of indexes and returns a list of integers at those indexes.
+    params:
+        numbers: str: A string of numbers separated by some delimiter.
+        indexes: str: A string of indexes.
+    returns:
+        list[int]: A list of integers at the specified indexes.
+    """
+    if indexes == 'E':
+        return numbers[::2]
+    elif indexes == 'O':
+        return numbers[1::2]
+    
+
+def get_int_numbers(numbers: str) -> List[int]:
+    """
+    This function takes a string of numbers separated by some delimiter and returns a list of integers.
+    params:
+        numbers: str: A string of numbers separated by some delimiter.
+    returns:
+        list[int]: A list of integers.
+    """
+    # default delimiters
+    # check if mentions E or O
+    index_specified = False
+
+    if numbers.startswith('E') or numbers.startswith('O'):
+        index_specified = True
+        use_indexes = numbers[0]
+        numbers = numbers[1:]
+   
+    delimiters, numbers = get_delimiters(numbers)
 
     # replace all delimiter with a comma
     for delimiter in delimiters:
@@ -37,10 +66,7 @@ def get_int_numbers(numbers: str) -> List[int]:
 
     all_numbers = list(map(int, numbers.split(',')))
     if index_specified:
-        if use_indexes == 'E':
-            return all_numbers[::2]
-        elif use_indexes == 'O':
-            return all_numbers[1::2]
+        all_numbers = get_numbers_at_indexes(all_numbers, use_indexes)
     return all_numbers
 
 
