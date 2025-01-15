@@ -41,8 +41,12 @@ class TestStringCalculator(unittest.TestCase):
         self.assertEqual(str(context.exception),
                          'negative numbers not allowed: -2, -3')
 
-    def test_large_numbers(self):
-        self.assertEqual(add('1001,2'), 2)
+    # def test_large_numbers(self):
+    #     self.assertEqual(add('1001,2'), 2)
+
+    def test_numbers_between_500_and_1000(self):
+        self.assertEqual(add('501,999'), 0)
+        self.assertEqual(add('501,999,1001'), 1001)
 
     def test_custom_delimiter_with_multiple_characters(self):
         self.assertEqual(add('//[***]\n1***2***3'), 6)
@@ -52,6 +56,10 @@ class TestStringCalculator(unittest.TestCase):
 
     def test_multiple_custom_delimiters_with_multiple_characters(self):
         self.assertEqual(add('//[**][%%]\n1**2%%3'), 6)
+
+    def test_even_odd_index_sums(self):
+        self.assertEqual(add('E1,2'), 1)
+        self.assertEqual(add('O1,2'), 2)
 
 
 # Run the tests

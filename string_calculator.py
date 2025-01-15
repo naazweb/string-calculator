@@ -11,6 +11,12 @@ def get_int_numbers(numbers: str) -> List[int]:
     """
     # default delimiters
     delimiters = [',', '\n']
+    index_specified = False
+    # check if mentions E or O
+    if numbers.startswith('E') or numbers.startswith('O'):
+        index_specified = True
+        use_indexes = numbers[0]
+        numbers = numbers[1:]
     # check if the string has a custom delimiter
     if numbers.startswith('//'):
         # split at first \n
@@ -29,7 +35,13 @@ def get_int_numbers(numbers: str) -> List[int]:
     for delimiter in delimiters:
         numbers = numbers.replace(delimiter, ',')
 
-    return list(map(int, numbers.split(',')))
+    all_numbers = list(map(int, numbers.split(',')))
+    if index_specified:
+        if use_indexes == 'E':
+            return all_numbers[::2]
+        elif use_indexes == 'O':
+            return all_numbers[1::2]
+    return all_numbers
 
 
 def add_nums(nums: List[int]) -> int:
@@ -40,8 +52,8 @@ def add_nums(nums: List[int]) -> int:
     returns:
         int: The sum of the numbers.
     """
-    # check for large numbers above 1000 and ignore them
-    nums = [num for num in nums if num <= 1000]
+    # check for large numbers above 500 and below 1000 and ignore them
+    nums = [num for num in nums if (num<=500 or num >= 1000)]
     return sum(nums)
 
 
